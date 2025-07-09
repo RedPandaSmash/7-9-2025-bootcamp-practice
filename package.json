@@ -1,0 +1,28 @@
+{
+  "name": "7-9-2025-bootcamp-practice",
+  "version": "1.0.0",
+  "description": "1. basic API\r 2. register and login routes\r 3. CRUD blog routes\r 4. validation middleware\r 5. frontend with forms",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedPandaSmash/7-9-2025-bootcamp-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedPandaSmash/7-9-2025-bootcamp-practice/issues"
+  },
+  "homepage": "https://github.com/RedPandaSmash/7-9-2025-bootcamp-practice#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.2"
+  }
+}
