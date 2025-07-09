@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
+<<<<<<< HEAD
 import jsonwebtoken from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -156,3 +157,19 @@ app.post("/api/login", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+=======
+
+// create an Express application
+const app = express();
+dotenv.config();
+const PORT = process.env.PORT || 3000;
+
+
+app.get("/api/health", (req,res) => {
+  res.status(200).json({ message: "API is healthy" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+>>>>>>> 4931c41d9e9aff176a9725670d493d9fdbae65b2
