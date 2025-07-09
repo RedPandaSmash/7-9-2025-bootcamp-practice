@@ -4,6 +4,8 @@
   "description": "1. basic API\r 2. register and login routes\r 3. CRUD blog routes\r 4. validation middleware\r 5. frontend with forms",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
