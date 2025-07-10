@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
-<<<<<<< HEAD
-import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import User from "./models/user.model.js";
 
 // load environment variables
 dotenv.config();
@@ -35,10 +35,7 @@ const validateSession = async (req, res, next) => {
     const token = req.headers.authorization;
 
     // check the status of the token
-    const decodedToken = await jsonwebtoken.verify(
-      token,
-      process.env.jsonwebtoken_SECRET
-    );
+    const decodedToken = await jwt.verify(token, process.env.jwt_SECRET);
 
     // provide response
     const user = await User.findById(decodedToken.id);
@@ -89,11 +86,11 @@ app.post("/api/signup", async (req, res) => {
     const newUser = await user.save();
 
     // issue the toke to the user
-    const token = jsonwebtoken.sign(
+    const token = jwt.sign(
       {
         id: newUser._id,
       },
-      process.env.jsonwebtoken_SECRET,
+      process.env.jwt_SECRET,
       { expiresIn: "1h" }
     );
 
@@ -134,11 +131,11 @@ app.post("/api/login", async (req, res) => {
     }
 
     // issue the token to the user
-    const token = jsonwebtoken.sign(
+    const token = jwt.sign(
       {
         id: foundUser._id,
       },
-      process.env.jsonwebtoken_SECRET,
+      process.env.jwt_SECRET,
       { expiresIn: "1h" }
     );
 
@@ -157,19 +154,3 @@ app.post("/api/login", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-=======
-
-// create an Express application
-const app = express();
-dotenv.config();
-const PORT = process.env.PORT || 3000;
-
-
-app.get("/api/health", (req,res) => {
-  res.status(200).json({ message: "API is healthy" });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
->>>>>>> 4931c41d9e9aff176a9725670d493d9fdbae65b2
