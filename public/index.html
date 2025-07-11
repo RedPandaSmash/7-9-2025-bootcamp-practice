@@ -6,6 +6,37 @@
     <link rel="stylesheet" href="./index.css" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+        <div class="container">
+      <header>
+        <h1>Blogs Posts</h1>
+      </header>
+<main>
+    <section class="form-section">
+      <h2>Add New Blog Post</h2>
+      <form id="blogForm">
+        <div class="form-group">
+          <label for="title">Blog Title:</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+        <div class="form-group">
+          <label for="content">Blog Content:</label>
+          <input type="text" id="content" name="content" required />
+        </div>
+        <div class="form-buttons">
+          <button type="submit" id="submitBtn">Add Blog</button>
+          <button
+            type="button"
+            id="cancelBtn"
+            class="cancel-btn"
+            style="display: none"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </section>
+    </main>
+  </body>
   <script src="./script.js"></script>
 </html>

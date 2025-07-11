@@ -7,11 +7,16 @@ import path from "path";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "./models/user.model.js";
+import { validateSession } from "./middleware/validation.js";
+import blogRoutes from "./routes/blog.route.js";
 
 // load environment variables
 dotenv.config();
 
 const app = express();
+
+// Serve static files from the "public" folder
+app.use(express.static(path.join(process.cwd(), "public")));
 
 const PORT = process.env.PORT || 8080;
 const MONGO = process.env.MONGODB;
@@ -27,30 +32,6 @@ const db = mongoose.connection;
 db.once("open", () => {
   console.log(`connected: ${MONGO}`);
 });
-
-// Middleware for jsonwebtoken authentication
-const validateSession = async (req, res, next) => {
-  try {
-    // take the token provided by the request object
-    const token = req.headers.authorization;
-
-    // check the status of the token
-    const decodedToken = await jwt.verify(token, process.env.jwt_SECRET);
-
-    // provide response
-    const user = await User.findById(decodedToken.id);
-
-    if (!user) throw new Error("User not found");
-
-    req.user = user; // attach the user to the request object
-
-    return next(); // call the next middleware or route handler
-  } catch (error) {
-    res.json({
-      error: "Unauthorized access",
-    });
-  }
-};
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
@@ -85,7 +66,7 @@ app.post("/api/signup", async (req, res) => {
 
     const newUser = await user.save();
 
-    // issue the toke to the user
+    // issue the token to the user
     const token = jwt.sign(
       {
         id: newUser._id,
@@ -150,6 +131,9 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// use the blog routes for blog operations
+app.use("/api/blogs", blogRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
